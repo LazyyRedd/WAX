@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Gpu } from 'lucide-react';
+import { Cpu } from 'lucide-react';
 import './PageCommon.css';
 
 const GPUTweaksPage = () => {
@@ -19,7 +19,7 @@ const GPUTweaksPage = () => {
         animate={{ opacity: 1, y: 0 }}
       >
         <div className="header-icon">
-          <Gpu size={32} />
+          <Cpu size={32} />
         </div>
         <div>
           <h1>GPU Tweaks</h1>

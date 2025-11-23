@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { 
-  Home, Sparkles, Trash2, TrendingUp, Gpu, Settings, 
+  Home, Sparkles, Trash2, TrendingUp, Cpu, Settings, 
   Shield, Wifi, Star, Battery, Wrench, Monitor, 
   Rocket, ShoppingBag, RotateCcw, ChevronDown, ChevronRight 
 } from 'lucide-react';
@@ -32,7 +32,7 @@ const Sidebar = ({ currentPage, setCurrentPage }) => {
         { id: 'cleaner', label: 'Cleaner', icon: Sparkles },
         { id: 'debloat', label: 'Debloat', icon: Trash2 },
         { id: 'performance', label: 'Performance', icon: TrendingUp },
-        { id: 'gpu-tweaks', label: 'GPU Tweaks', icon: Gpu },
+        { id: 'gpu-tweaks', label: 'GPU Tweaks', icon: Cpu },
       ]
     },
     {
