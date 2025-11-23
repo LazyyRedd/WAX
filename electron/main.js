@@ -1,7 +1,9 @@
 const { app, BrowserWindow } = require('electron');
 const path = require('path');
+const { spawn } = require('child_process');
 
 let mainWindow;
+let csharpService;
 
 function createWindow() {
   mainWindow = new BrowserWindow({
@@ -33,9 +35,43 @@ function createWindow() {
   });
 }
 
-app.whenReady().then(createWindow);
+// Start C# backend service
+function startCSharpService() {
+  const servicePath = path.join(__dirname, '../csharp/WAX.Services/bin/Release/net8.0/WAX.Services.exe');
+  
+  // Check if the service executable exists
+  if (require('fs').existsSync(servicePath)) {
+    csharpService = spawn(servicePath, [], {
+      cwd: path.join(__dirname, '../csharp/WAX.Services/bin/Release/net8.0')
+    });
+
+    csharpService.stdout.on('data', (data) => {
+      console.log(`C# Service: ${data}`);
+    });
+
+    csharpService.stderr.on('data', (data) => {
+      console.error(`C# Service Error: ${data}`);
+    });
+
+    csharpService.on('close', (code) => {
+      console.log(`C# Service exited with code ${code}`);
+    });
+  } else {
+    console.warn('C# Service not found. Running in UI-only mode.');
+  }
+}
+
+app.whenReady().then(() => {
+  startCSharpService();
+  createWindow();
+});
 
 app.on('window-all-closed', () => {
+  // Cleanup C# service
+  if (csharpService) {
+    csharpService.kill();
+  }
+  
   if (process.platform !== 'darwin') {
     app.quit();
   }

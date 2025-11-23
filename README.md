@@ -47,9 +47,11 @@
 
 ### Prerequisites
 
-- Node.js 16.x or higher
-- npm or yarn package manager
-- Windows 10/11 (for full functionality)
+- **Node.js** 16.x or higher
+- **npm** or yarn package manager
+- **.NET 8 SDK** (for building C# components)
+- **Windows 10/11** (for full functionality)
+- **PowerShell 5.1+** (included in Windows)
 
 ### Installation
 
@@ -59,53 +61,124 @@ git clone https://github.com/LazyyRedd/WAX.git
 cd WAX
 ```
 
-2. Install dependencies:
+2. Install Node.js dependencies:
 ```bash
 npm install
 ```
 
-3. Run the development server:
+3. Build C# backend services:
+```bash
+cd csharp
+dotnet restore
+dotnet build --configuration Release
+cd ..
+```
+
+4. Run the development server:
 ```bash
 npm run dev
 ```
 
-4. Build for production:
+5. Build for production:
 ```bash
+# Build React frontend
 npm run build
+
+# Build C# services
+cd csharp
+dotnet publish WAX.Services/WAX.Services.csproj -c Release -o ../dist/services
+cd ..
+
+# Build Electron app
 npm run build:electron
+```
+
+### Running Scripts
+
+**PowerShell Scripts** (Run as Administrator):
+```powershell
+# Full system optimization
+.\scripts\powershell\Optimize-System.ps1 -FullOptimization
+
+# Quick optimization
+.\scripts\powershell\Optimize-System.ps1 -QuickOptimization
+
+# Get system information
+.\scripts\powershell\Get-SystemInfo.ps1 -OutputJson
+```
+
+**Batch Scripts** (Run as Administrator):
+```cmd
+# Quick optimization
+.\scripts\batch\quick-optimize.bat
+
+# Disable telemetry
+.\scripts\batch\disable-telemetry.bat
+
+# Optimize network
+.\scripts\batch\network-optimize.bat
 ```
 
 ## 🛠️ Tech Stack
 
+### Frontend
 - **Electron.js** - Cross-platform desktop application framework
-- **React** - UI framework
-- **Framer Motion** - Animation library
+- **React 18** - UI framework for building user interfaces
+- **Framer Motion** - Animation library for smooth transitions
 - **Vite** - Build tool and development server
 - **Lucide React** - Icon library
+
+### Backend & Core
+- **C# (.NET 8)** - Core system optimization components for better performance, stability, and compatibility
+  - `WAX.Core` - System information and optimization library
+  - `WAX.Services` - REST API service for Electron communication
+- **PowerShell** - Advanced optimization scripts and system management
+- **Batch Scripts** - CLI tools for quick system optimizations
 
 ## 📦 Project Structure
 
 ```
 WAX/
-├── electron/          # Electron main process files
-│   └── main.js
-├── src/
-│   ├── components/    # Reusable React components
+├── electron/              # Electron main process files
+│   └── main.js           # Main process, starts C# service
+├── src/                  # React frontend
+│   ├── components/       # Reusable React components
 │   │   ├── Sidebar.jsx
 │   │   ├── Header.jsx
 │   │   ├── FeatureCard.jsx
 │   │   └── LoadingSpinner.jsx
-│   ├── pages/         # Application pages
+│   ├── pages/           # Application pages (15+ pages)
 │   │   ├── HomePage.jsx
 │   │   ├── CleanerPage.jsx
 │   │   ├── DebloatPage.jsx
 │   │   └── ...
-│   ├── styles/        # CSS stylesheets
+│   ├── styles/          # CSS stylesheets
 │   │   ├── global.css
 │   │   ├── App.css
 │   │   └── ...
-│   ├── App.jsx        # Main application component
-│   └── main.jsx       # React entry point
+│   ├── utils/           # Utility functions
+│   │   └── api.js       # C# backend API client
+│   ├── App.jsx          # Main application component
+│   └── main.jsx         # React entry point
+├── csharp/              # C# backend components
+│   ├── WAX.Core/        # Core optimization library
+│   │   ├── SystemInfo.cs
+│   │   ├── SystemOptimizer.cs
+│   │   └── WAX.Core.csproj
+│   ├── WAX.Services/    # REST API service
+│   │   ├── Controllers/
+│   │   │   └── SystemController.cs
+│   │   ├── Program.cs
+│   │   └── WAX.Services.csproj
+│   └── WAX.sln          # Visual Studio solution
+├── scripts/             # Optimization scripts
+│   ├── powershell/      # PowerShell scripts
+│   │   ├── Optimize-System.ps1
+│   │   └── Get-SystemInfo.ps1
+│   └── batch/           # Batch scripts
+│       ├── quick-optimize.bat
+│       ├── disable-telemetry.bat
+│       └── network-optimize.bat
 ├── package.json
 ├── vite.config.js
 └── README.md
