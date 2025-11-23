@@ -1,0 +1,87 @@
+.feature-card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: all 0.3s ease;
+}
+
+.feature-card:hover {
+  border-color: var(--accent-red);
+  box-shadow: 0 4px 20px rgba(230, 57, 70, 0.2);
+}
+
+.card-icon {
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(230, 57, 70, 0.2), rgba(230, 57, 70, 0.1));
+  border-radius: 12px;
+  color: var(--accent-red);
+}
+
+.card-content {
+  flex: 1;
+}
+
+.card-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.card-description {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.card-status {
+  margin-top: 12px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  display: inline-block;
+}
+
+.status-success {
+  background: rgba(46, 204, 113, 0.2);
+  color: var(--success);
+}
+
+.status-warning {
+  background: rgba(243, 156, 18, 0.2);
+  color: var(--warning);
+}
+
+.status-error {
+  background: rgba(231, 76, 60, 0.2);
+  color: var(--error);
+}
+
+.card-action {
+  background: var(--accent-red);
+  color: var(--text-primary);
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.card-action:hover:not(:disabled) {
+  background: var(--accent-red-hover);
+  box-shadow: 0 4px 12px rgba(230, 57, 70, 0.4);
+}
+
+.card-action:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
