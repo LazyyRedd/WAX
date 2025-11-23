@@ -8,6 +8,8 @@ namespace WAX.Core
 {
     /// <summary>
     /// Core system optimization functionality
+    /// IMPORTANT: Many operations require Administrator privileges.
+    /// The application should be run as Administrator for full functionality.
     /// </summary>
     public class SystemOptimizer
     {

@@ -110,12 +110,26 @@ export async function createRestorePoint(description = 'WAX System Restore Point
 
 /**
  * Execute PowerShell script
+ * @param {string} scriptName - Name of the PowerShell script (without .ps1 extension)
+ * @param {object} params - Parameters to pass to the script
+ * @returns {Promise<object>} Result with success, output, and errors
  */
 export async function executePowerShellScript(scriptName, params = {}) {
   try {
-    // This would require additional endpoint in C# service
-    console.log(`Executing PowerShell script: ${scriptName}`, params);
-    return { success: true };
+    const response = await fetch(`${API_BASE_URL}/script/powershell/${scriptName}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ parameters: params })
+    });
+    
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.error || 'Failed to execute PowerShell script');
+    }
+    
+    return await response.json();
   } catch (error) {
     console.error('Error executing PowerShell script:', error);
     return { success: false, error: error.message };
@@ -124,12 +138,26 @@ export async function executePowerShellScript(scriptName, params = {}) {
 
 /**
  * Execute Batch script
+ * @param {string} scriptName - Name of the Batch script (without .bat extension)
+ * @param {object} params - Parameters to pass to the script
+ * @returns {Promise<object>} Result with success, output, and errors
  */
 export async function executeBatchScript(scriptName, params = {}) {
   try {
-    // This would require additional endpoint in C# service
-    console.log(`Executing Batch script: ${scriptName}`, params);
-    return { success: true };
+    const response = await fetch(`${API_BASE_URL}/script/batch/${scriptName}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ parameters: params })
+    });
+    
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.error || 'Failed to execute Batch script');
+    }
+    
+    return await response.json();
   } catch (error) {
     console.error('Error executing Batch script:', error);
     return { success: false, error: error.message };

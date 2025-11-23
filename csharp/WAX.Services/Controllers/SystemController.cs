@@ -8,6 +8,21 @@ namespace WAX.Services.Controllers
     public class SystemController : ControllerBase
     {
         /// <summary>
+        /// Check if running with administrator privileges
+        /// </summary>
+        [HttpGet("admin/status")]
+        public IActionResult GetAdminStatus()
+        {
+            return Ok(new
+            {
+                isAdmin = AdminHelper.IsAdministrator(),
+                message = AdminHelper.IsAdministrator() 
+                    ? "Running with Administrator privileges" 
+                    : AdminHelper.AdminRequiredMessage
+            });
+        }
+
+        /// <summary>
         /// Get system information
         /// </summary>
         [HttpGet("info")]
